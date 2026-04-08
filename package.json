@@ -1,0 +1,41 @@
+{
+  "name": "gtsalpha-mcp",
+  "version": "1.0.0",
+  "description": "GTSAlpha Forensics — MCP Server (C.H.R.O.N.O.S. Backend)",
+  "type": "module",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "node --watch --loader ts-node/esm src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "db:migrate": "node --loader ts-node/esm scripts/migrate.ts",
+    "create:admin": "node --loader ts-node/esm scripts/create_admin.ts"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.10.1",
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.4.1",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.13.1",
+    "uuid": "^11.0.3",
+    "winston": "^3.17.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/compression": "^1.7.5",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.0.0",
+    "@types/pg": "^8.11.10",
+    "@types/uuid": "^10.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+}

@@ -1,0 +1,47 @@
+# =============================================================================
+# GTSAlpha Forensics MCP Server — Docker Compose
+# Database: Supabase cloud (DATABASE_URL ใน .env)
+# Port: 3890 → MCP SSE + REST API
+# =============================================================================
+
+services:
+  mcp-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gtsalpha-mcp
+    restart: unless-stopped
+
+    ports:
+      - "3890:3890"
+
+    env_file:
+      - .env          # สร้างจาก .env.example แล้วใส่ค่าจริง
+
+    environment:
+      - NODE_ENV=production
+      - PORT=3890
+
+    volumes:
+      # Logs persist (ตรวจสอบย้อนหลังได้)
+      - ./logs:/app/logs
+
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3890/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+    # Security: จำกัด resource ไม่ให้กิน RAM หมด
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '1.0'
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
